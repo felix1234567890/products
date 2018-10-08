@@ -1,0 +1,23 @@
+<div *ngIf="products.length > 0; else empty">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let product of products, index">
+     <h4>{{product.name}}</h4> <p>{{product.description}}</p> <p>{{product.price}}</p>
+      <button class="btn btn-danger"(click)="deleteProduct($event, product)">Delete</button>
+      <button class="btn btn-info" (click)="editProduct($event, product)">Edit</button>
+      <div *ngIf="editing && editingProduct.id == product.id">
+        <form (ngSubmit)="updateProduct()">
+          <div class="form-group mt-2">
+              <input class="form-control" type="text" name="name" [(ngModel)]="editingProduct.name">
+              <input class="form-control"type="text" name="description" [(ngModel)]="editingProduct.description">
+              <input class="form-control" type="number" name="price" [(ngModel)]="editingProduct.price">
+              <button class="btn btn-outline-primary" type="submit">Update</button>
+          </div>
+   
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<ng-template #empty>
+  <p>No products to show.</p>
+</ng-template>
